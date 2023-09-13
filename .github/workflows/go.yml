@@ -6,15 +6,16 @@ on:
     
 jobs:
   test:
-    runs-on: utuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         go_version: ['>=1.20']
+        os: ['ubuntu-latest','ubuntu-18.04']
     steps:
     - uses: actions/checkout@v3
 
     - name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version: ${{ matrix.go_version }}
       
@@ -30,7 +31,7 @@ jobs:
   
   build:
     needs: test
-    runs-on: utuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: ['ubuntu-latest', 'ubuntu-18.04']
